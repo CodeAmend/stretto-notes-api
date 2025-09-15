@@ -7,7 +7,13 @@ from typing import List
 class Settings(BaseSettings):
     # MongoDB
     MONGODB_URL: str = "mongodb://localhost:27017"
-    DATABASE_NAME: str = "stretto_notes"
+    DATABASE_NAME: str = "stretto_notes_test"
+
+    # Collection Names
+    USER_COLLECTION: str = "user"
+    SESSION_COLLECTION: str = "session"
+    PRACTICE_COLLECTION: str = "practice"
+    JOURNEY_COLLECTION: str = "journey"
     
     # JWT
     SECRET_KEY: str = "your-secret-key-change-this-in-production"
@@ -19,6 +25,7 @@ class Settings(BaseSettings):
     
     class Config:
         env_file = ".env"
+        extra = "ignore"
 
 settings = Settings()
 

@@ -1,19 +1,18 @@
-# app/models/practice_item.py
+# app/models/practice.py
 
 from pydantic import BaseModel, Field
 from typing import Optional, List
 from app.database import PyObjectId
 
-class PracticeItemBase(BaseModel):
+class PracticeBase(BaseModel):
     title: str
     composer: Optional[str] = None
-    genre: Optional[str] = None
-    tags: List[str] = []
+    subject_type: Optional[str] = None
 
-class PracticeItemCreate(PracticeItemBase):
+class PracticeCreate(PracticeBase):
     pass
 
-class PracticeItem(PracticeItemBase):
+class Practice(PracticeBase):
     id: Optional[PyObjectId] = Field(alias="_id")
     user_id: Optional[str] = None
 

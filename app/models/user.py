@@ -1,9 +1,9 @@
 # app/models/user.py
 
-from pydantic import BaseModel, Field, EmailStr
-from typing import Optional
+from pydantic import BaseModel, Field, EmailStr, field_validator
+from typing import Optional, Any
 from datetime import datetime
-from app.database import PyObjectId
+from bson import ObjectId
 
 class UserBase(BaseModel):
     email: EmailStr
@@ -13,12 +13,25 @@ class UserCreate(UserBase):
     password: str
 
 class User(UserBase):
-    id: Optional[PyObjectId] = Field(alias="_id")
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-
+    id: Optional[str] = Field(default=None, alias="_id")
+    created_at: Optional[datetime] = Field(default_factory=datetime.utcnow)
+    is_admin: Optional[bool] = False
+    
+    @field_validator('id', mode='before')
+    @classmethod
+    def convert_objectid(cls, v: Any) -> Optional[str]:
+        """Convert ObjectId to string"""
+        if isinstance(v, ObjectId):
+            return str(v)
+        return v
+    
     class Config:
         populate_by_name = True
-        json_encoders = {PyObjectId: str}
+        arbitrary_types_allowed = True
+        json_encoders = {
+            ObjectId: str,
+            datetime: lambda v: v.isoformat()
+        }
 
 class Token(BaseModel):
     access_token: str

@@ -13,6 +13,7 @@ class SessionBase(BaseModel):
     ai_suggestions: List[Dict[str, Any]] = []
     insight_counts: Dict[str, int] = {}
     session_summary: Optional[str] = None
+    session_journal: Optional[str] = None
     session_focus: Optional[str] = None
     full_transcript: Optional[str] = None
     is_active: bool = False
@@ -26,6 +27,7 @@ class SessionUpdate(BaseModel):
     ai_suggestions: Optional[List[Dict[str, Any]]] = None
     insight_counts: Optional[Dict[str, int]] = None
     session_summary: Optional[str] = None
+    session_journal: Optional[str] = None
     session_focus: Optional[str] = None
     full_transcript: Optional[str] = None
     is_active: Optional[bool] = None

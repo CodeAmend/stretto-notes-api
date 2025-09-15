@@ -31,6 +31,7 @@ async def create_journey(
     journey_dict = journey.dict()
     journey_dict["user_id"] = str(current_user.id)
     journey_dict["created_at"] = datetime.utcnow()
+    journey_dict["updated_at"] = datetime.utcnow()
     result = await journeys_collection.insert_one(journey_dict)
     created_journey = await journeys_collection.find_one({"_id": result.inserted_id})
     return Journey.model_validate(created_journey)
@@ -66,6 +67,7 @@ async def update_journey(
     update_data = {k: v for k, v in journey_update.dict().items() if v is not None}
     
     if update_data:
+        update_data["updated_at"] = datetime.utcnow()
         result = await journeys_collection.update_one(
             {"_id": ObjectId(journey_id), "user_id": str(current_user.id)},
             {"$set": update_data}

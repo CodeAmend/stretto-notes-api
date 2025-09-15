@@ -1,7 +1,7 @@
 # app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import auth, sessions, practice_items, journeys
+from app.routers import auth, sessions, practice, journeys
 from app.config import settings
 
 app = FastAPI(
@@ -22,7 +22,7 @@ app.add_middleware(
 # Include routers
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(sessions.router, prefix="/sessions", tags=["Sessions"])
-app.include_router(practice_items.router, prefix="/practice-items", tags=["Practice Items"])
+app.include_router(practice.router, prefix="/practice", tags=["Practice"])
 app.include_router(journeys.router, prefix="/journeys", tags=["Journeys"])
 
 @app.get("/")

@@ -7,7 +7,7 @@ from app.database import PyObjectId
 class JourneyBase(BaseModel):
     title: str
     practice_item_ids: List[str] = []
-    goal: Optional[str] = None
+    is_active: bool = True
 
 class JourneyCreate(JourneyBase):
     pass
@@ -15,11 +15,12 @@ class JourneyCreate(JourneyBase):
 class JourneyUpdate(BaseModel):
     title: Optional[str] = None
     practice_item_ids: Optional[List[str]] = None
-    goal: Optional[str] = None
+    is_active: Optional[bool] = None
 
 class Journey(JourneyBase):
     id: Optional[PyObjectId] = Field(alias="_id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
     user_id: Optional[str] = None
 
     class Config:

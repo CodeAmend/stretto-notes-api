@@ -9,10 +9,10 @@ client = AsyncIOMotorClient(settings.MONGODB_URL)
 db = client[settings.DATABASE_NAME]
 
 # Collections
-users_collection = db["users"]
-sessions_collection = db["sessions"]
-practice_items_collection = db["practice_items"]
-journeys_collection = db["journeys"]
+users_collection = db[settings.USER_COLLECTION]
+sessions_collection = db[settings.SESSION_COLLECTION]
+practice_collection = db[settings.PRACTICE_COLLECTION]
+journeys_collection = db[settings.JOURNEY_COLLECTION]
 
 # Helper class for ObjectId handling
 class PyObjectId(ObjectId):
@@ -20,7 +20,7 @@ class PyObjectId(ObjectId):
     def __get_pydantic_core_schema__(cls, source_type, handler):
         from pydantic_core import core_schema
 
-        def validate_object_id(v):
+        def validate_object_id(v, info):
             if isinstance(v, ObjectId):
                 return v
             if isinstance(v, str) and ObjectId.is_valid(v):

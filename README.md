@@ -42,7 +42,7 @@ git push origin main
 - Railway will auto-detect Python and deploy
 - Add environment variables in Railway dashboard:
   - `MONGODB_URL` - Your MongoDB Atlas connection string
-  - `DATABASE_NAME` - stretto_notes (or your preference)
+  - `DATABASE_NAME` - stretto_notes_test (or your preference)
   - `SECRET_KEY` - Generate with: `openssl rand -hex 32`
 
 3. **Railway will provide your API URL:**
